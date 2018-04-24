@@ -15,7 +15,7 @@ class ElasticSearchSink(object):
 
     def send(self, blobs):
         for blob in blobs:
-            todaysIndex = '%s-%s' % (blob['type'], self.get_index())
+            todaysIndex = 'hlds-%s-%s' % (blob['type'], self.get_index())
             res = self.es.index(index=todaysIndex, doc_type=blob['type'], body=blob)
             print(res['_id'] + ': ' + repr(blob))
 
@@ -25,7 +25,7 @@ class ElasticSearchSink(object):
     def get_index(self):
         day = time.strftime("%d-%m-%Y")
 
-        return 'hlds-%s' % day
+        return day
 
 
 def send_to_es(blobs):
